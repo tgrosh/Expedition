@@ -21,9 +21,6 @@ public class ClickToMove : MonoBehaviour
             if (Physics.Raycast(ray.origin, ray.direction, out m_HitInfo, Mathf.Infinity, -1, QueryTriggerInteraction.Ignore))
             {
                 m_Agent.destination = m_HitInfo.point;
-
-                GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-                sphere.transform.position = m_HitInfo.point;
             }
         }
     }

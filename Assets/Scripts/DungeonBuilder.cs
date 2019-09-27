@@ -19,7 +19,7 @@ public class DungeonBuilder : MonoBehaviour
     public int borderSize = 5;
 
     public GameObject player;
-    public NavMeshSurface navMeshSurface;
+    public GameObject ground;
 
     public string seed;
     public bool useRandomSeed;
@@ -43,7 +43,10 @@ public class DungeonBuilder : MonoBehaviour
 
     void StartPlayer()
     {
-        navMeshSurface.BuildNavMesh();
+        foreach (NavMeshSurface surface in ground.GetComponents<NavMeshSurface>())
+        {
+            surface.BuildNavMesh();
+        }
 
         Rect startingRoomBounds = rooms[pseudoRandom.Next(0, rooms.Count)].bounds;
         GameObject objPlayer = Instantiate(player, new Vector3(startingRoomBounds.center.x, 0, startingRoomBounds.center.y), Quaternion.identity);

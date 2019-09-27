@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class RunningAgent : MonoBehaviour
+public class AnimatedAgent : MonoBehaviour
 {
     public NavMeshAgent agent;
     public Animator animator;
@@ -11,6 +11,7 @@ public class RunningAgent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        animator.SetBool("running", agent.velocity.magnitude > .01f);
+        float currentVelocity = agent.velocity.magnitude / agent.speed;
+        animator.SetFloat("velocity", currentVelocity);
     }
 }
