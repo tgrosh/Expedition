@@ -18,8 +18,13 @@ public class ClickToMove : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && !Input.GetKey(KeyCode.LeftShift))
         {
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray.origin, ray.direction, out m_HitInfo))
+            if (Physics.Raycast(ray.origin, ray.direction, out m_HitInfo, Mathf.Infinity, -1, QueryTriggerInteraction.Ignore))
+            {
                 m_Agent.destination = m_HitInfo.point;
+
+                GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                sphere.transform.position = m_HitInfo.point;
+            }
         }
     }
 }
