@@ -157,6 +157,15 @@ MonoBehaviour:
   roomOutline: {fileID: 1102348803}
   wallHeight: 5
   is2D: 0
+  wallPropPrefabs:
+  - {fileID: 6789866328968702130, guid: 1afbe4776c1830345bded93a689a9f29, type: 3}
+  debugDraw: 0
+  debugMaterials:
+  - {fileID: 2100000, guid: 83e7e025ba8cc7b499428ac61f51c83a, type: 2}
+  - {fileID: 2100000, guid: 2bc274dd472025a448c663b709da708e, type: 2}
+  - {fileID: 2100000, guid: 9608932537716664985ad112b6ea85fd, type: 2}
+  - {fileID: 2100000, guid: 6035e3220b4bd984c89ab0c6f7ba986c, type: 2}
+  - {fileID: 2100000, guid: c30e6dd38de4b3440b9d6eb2381d533a, type: 2}
 --- !u!114 &11631305
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -181,6 +190,7 @@ MonoBehaviour:
   ground: {fileID: 1056345366}
   seed: 
   useRandomSeed: 1
+  wallPropDensity: 0.146
 --- !u!4 &11631306
 Transform:
   m_ObjectHideFlags: 0

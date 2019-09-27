@@ -25,6 +25,9 @@ public class DungeonBuilder : MonoBehaviour
     public bool useRandomSeed;
     System.Random pseudoRandom;
 
+    [Range(0,1)]
+    public float wallPropDensity;
+    
     int[,] map;
     List<Room> rooms = new List<Room>();
 
@@ -80,6 +83,7 @@ public class DungeonBuilder : MonoBehaviour
 
         rooms = CreateRooms();
         ConnectRooms(rooms);
+        CreateRoomWallPropLocations(wallPropDensity);
 
         int[,] borderedMap = new int[mapWidth + borderSize * 2, mapHeight + borderSize * 2];
 
@@ -100,6 +104,47 @@ public class DungeonBuilder : MonoBehaviour
 
         DungeonMeshGenerator meshGen = GetComponent<DungeonMeshGenerator>();
         meshGen.GenerateMesh(borderedMap, 1);
+    }
+
+    public void CreateRoomWallPropLocations(float wallPropDensity)
+    {
+        if (wallPropDensity == 0) return;
+
+        for (int x = 0; x < map.GetLength(0); x++)
+        {
+            for (int y = 0; y < map.GetLength(1); y++)
+            {
+                //if we are in a room, look for walls on one side of this cell, that done have a prop.
+                // Then this might be a room-wall-prop location
+                if (map[x, y] == (int)TileType.Room && wallPropDensity >= UnityEngine.Random.Range(0f, 1f) &&
+                    GetNeighborCount(new Coord(x, y), TileType.Wall) == 1 &&
+                    GetNeighborCount(new Coord(x, y), TileType.WallProp) == 0)
+                {
+                    map[x, y] = (int)TileType.WallProp;
+                }                
+            }
+        }
+    }
+
+    int GetNeighborCount(Coord coord, TileType neighborType)
+    {
+        int neighbors = 0;
+
+        if (coord.tileX < map.GetLength(0) - 1 && map[coord.tileX + 1, coord.tileY] == (int)neighborType)
+        {
+            neighbors++;
+        } else if (coord.tileX > 0 && map[coord.tileX - 1, coord.tileY] == (int)neighborType)
+        {
+            neighbors++;
+        } else if (coord.tileY < map.GetLength(1) - 1 && map[coord.tileX, coord.tileY + 1] == (int)neighborType)
+        {
+            neighbors++;
+        } else if (coord.tileY > 0 && map[coord.tileX, coord.tileY - 1] == (int)neighborType)
+        {
+            neighbors++;
+        }
+
+        return neighbors;
     }
 
     List<Room> CreateRooms()
@@ -246,11 +291,16 @@ public class DungeonBuilder : MonoBehaviour
     {
         Room.ConnectRooms(roomA, roomB);
 
-        List<Coord> corridor = GetCorridorCoords(tileA, tileB);
-
+        List<Coord> corridor = GetCorridorCoords(tileA, tileB);        
         foreach (Coord c in corridor)
         {
             DrawCorridorCoord(c, hallwayWidth);
+        }
+
+        if (corridor.Count > 6)
+        {
+            map[corridor[1].tileX, corridor[1].tileY] = (int)TileType.Door;
+            map[corridor[corridor.Count - 2].tileX, corridor[corridor.Count - 2].tileY] = (int)TileType.Door;
         }
     }
 

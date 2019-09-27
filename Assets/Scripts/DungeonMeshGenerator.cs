@@ -12,8 +12,15 @@ public class DungeonMeshGenerator : MonoBehaviour
     public int wallHeight = 5;
     public bool is2D;
 
+    public List<GameObject> wallPropPrefabs = new List<GameObject>();
+
+    public bool debugDraw;
+    public List<Material> debugMaterials = new List<Material>();
+
     List<Vector3> vertices;
     List<int> triangles;
+    float squareSize;
+    int[,] map;
 
     Dictionary<int, List<Triangle>> triangleDictionary = new Dictionary<int, List<Triangle>>();
     List<List<int>> outlines = new List<List<int>>();
@@ -26,6 +33,8 @@ public class DungeonMeshGenerator : MonoBehaviour
         outlines.Clear();
         checkedVertices.Clear();
 
+        this.map = map;
+        this.squareSize = squareSize;
         squareGrid = new SquareGrid(map, squareSize);
 
         vertices = new List<Vector3>();
@@ -68,12 +77,82 @@ public class DungeonMeshGenerator : MonoBehaviour
         else
         {
             CreateWallMesh(map, squareSize);
+            Clutter();
+        }
+        
+        foreach (GameObject obj in GameObject.FindGameObjectsWithTag("DebugPlane"))
+        {
+            Destroy(obj);
+        }
+        if (debugDraw)
+        {
+            DebugDraw(debugMaterials);
+        }
+    }
+    
+    public void DebugDraw(List<Material> debugMaterials)
+    {
+        for (int x = 0; x < squareGrid.squares.GetLength(0); x++)
+        {
+            for (int y = 0; y < squareGrid.squares.GetLength(1); y++)
+            {
+                if (map[x, y] != (int)TileType.Wall)
+                {
+                    GameObject plane = GameObject.CreatePrimitive(PrimitiveType.Plane);
+                    plane.transform.localScale = Vector3.one * (1 / squareSize) * .1f;
+                    plane.transform.position = squareGrid.squares[x, y].bottomLeft.position + (Vector3.up * .1f);
+                    plane.transform.SetParent(gameObject.transform);
+
+                    plane.GetComponent<Renderer>().material = debugMaterials[map[x, y]];
+                    plane.tag = "DebugPlane";
+                }
+            }
         }
     }
 
+    public void Clutter()
+    {        
+        for (int x = 0; x < map.GetLength(0); x++)
+        {
+            for (int y = 0; y < map.GetLength(1); y++)
+            {
+                if (wallPropPrefabs.Count > 0 && map[x,y] == (int)TileType.WallProp)
+                {
+                    PlaceWallPrefab(x, y);
+                }
+            }
+        }
+    }
+
+    public void PlaceWallPrefab(int x, int y)
+    {
+        GameObject wallProp = Instantiate(wallPropPrefabs[UnityEngine.Random.Range(0, wallPropPrefabs.Count - 1)]);
+        wallProp.transform.position = new Vector3((x - map.GetLength(0) / 2f)+.5f, wallHeight * .66f, (y - map.GetLength(1) / 2f) + .5f);
+        wallProp.transform.SetParent(gameObject.transform);
+
+        if (x < map.GetLength(0) - 1 && map[x + 1, y] == (int)TileType.Wall)
+        {
+            //wall on right
+            wallProp.transform.Rotate(new Vector3(0, -90f, 0));
+        }
+        else if (x > 0 && map[x - 1, y] == (int)TileType.Wall)
+        {
+            //wall on left
+            wallProp.transform.Rotate(new Vector3(0, 90f, 0));
+        }
+        else if (y < map.GetLength(1) - 1 && map[x, y + 1] == (int)TileType.Wall)
+        {
+            //wall below?
+            wallProp.transform.Rotate(new Vector3(0, 180f, 0));
+        }
+        else if (y > 0 && map[x, y - 1] == (int)TileType.Wall)
+        {
+            //wall above?
+        }
+    }
+    
     void CreateWallMesh(int[,] map, float squareSize)
     {
-
         MeshCollider currentCollider = GetComponent<MeshCollider>();
         Destroy(currentCollider);
 
