@@ -711,6 +711,7 @@ GameObject:
   - component: {fileID: 2278868992335352647}
   - component: {fileID: 6347547526092425322}
   - component: {fileID: 5216512993068098584}
+  - component: {fileID: 487414419}
   m_Layer: 11
   m_Name: Player
   m_TagString: Player
@@ -757,7 +758,7 @@ NavMeshAgent:
   m_AutoRepath: 1
   m_Height: 2
   m_BaseOffset: 0
-  m_WalkableMask: 4294967295
+  m_WalkableMask: 1
   m_ObstacleAvoidanceType: 4
 --- !u!114 &3334025311928212672
 MonoBehaviour:
@@ -817,6 +818,7 @@ MonoBehaviour:
   clickLayers:
     serializedVersion: 2
     m_Bits: 5120
+  meleeRange: 2.5
 --- !u!114 &5216512993068098584
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -829,6 +831,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cc53abbe1b1b7547912d0c4bc5b54eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &487414419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1986712189424077274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a32abc003c1737428504ecb9edfb062, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  range: 2.5
+  attackInterval: 1
+  animator: {fileID: 3982870743376594400}
 --- !u!1 &3408509028092894748
 GameObject:
   m_ObjectHideFlags: 0
@@ -1620,13 +1638,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 486060831257848179, guid: 7fec0636b405baf47a8d37f46794d461,
         type: 3}
-      propertyPath: m_IsActive
-      value: 0
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 486060831257848179, guid: 7fec0636b405baf47a8d37f46794d461,
         type: 3}
-      propertyPath: m_Layer
-      value: 11
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 486060831257848189, guid: 7fec0636b405baf47a8d37f46794d461,
         type: 3}

@@ -7,15 +7,19 @@ public class ClickToMove : MonoBehaviour
 {
     public GameObject targetCirclePrefab;
     public LayerMask clickLayers;
+    public float meleeRange;
 
     NavMeshAgent agent;
     RaycastHit hit = new RaycastHit();
     GameObject circle;
     GameObject target;
 
+    float agentStoppingDistance;
+
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        agentStoppingDistance = agent.stoppingDistance;
     }
 
     void Update()
@@ -23,6 +27,10 @@ public class ClickToMove : MonoBehaviour
         if (target != null)
         {
             agent.destination = target.transform.position;
+            agent.stoppingDistance = meleeRange;
+        } else
+        {
+            agent.stoppingDistance = agentStoppingDistance;
         }
 
         if (agent.remainingDistance < agent.stoppingDistance && circle != null)
@@ -30,7 +38,7 @@ public class ClickToMove : MonoBehaviour
             Destroy(circle);
         }
 
-        if (Input.GetMouseButtonDown(0) && !Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetMouseButtonDown(0))
         {
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray.origin, ray.direction, out hit, Mathf.Infinity, clickLayers, QueryTriggerInteraction.Ignore))
@@ -54,6 +62,7 @@ public class ClickToMove : MonoBehaviour
                 } else
                 {
                     target = targetable.gameObject;
+                    Destroy(circle);
                 }
             }
         }

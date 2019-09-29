@@ -23,7 +23,18 @@ public class MouseTarget : MonoBehaviour
                 if (targetable != null)
                 {
                     targetable.SetTarget();
-                }
+
+                    Attack attack = GetComponent<Attack>();
+                    if (attack != null)
+                    {
+                        Attackable attackable = targetable.GetComponent<Attackable>();
+                        if (attackable != null)
+                        {
+                            //this object can attack, and the target is attackable
+                            attack.target = targetable.gameObject;
+                        }
+                    }
+                }                
             }
         }
     }

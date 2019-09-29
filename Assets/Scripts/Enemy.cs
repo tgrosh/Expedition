@@ -5,13 +5,18 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
+    public float meleeRange;
+
     NavMeshAgent agent;
     List<GameObject> targets = new List<GameObject>();
+    float agentStoppingDistance;
 
     // Start is called before the first frame update
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        agentStoppingDistance = agent.stoppingDistance;
+
         NavMeshHit closestHit;
         if (NavMesh.SamplePosition(transform.position, out closestHit, 100f, NavMesh.AllAreas))
         {
@@ -26,6 +31,11 @@ public class Enemy : MonoBehaviour
         if (targets.Count > 0)
         {
             agent.destination = targets[0].transform.position;
+            agent.stoppingDistance = meleeRange;
+        }
+        else
+        {
+            agent.stoppingDistance = agentStoppingDistance;
         }
     }
 
