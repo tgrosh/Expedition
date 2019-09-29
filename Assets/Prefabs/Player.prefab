@@ -772,6 +772,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetCirclePrefab: {fileID: 6120229460759633941, guid: 4262778a2f8f6d142a55d13ab31280ca,
     type: 3}
+  clickLayers:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!114 &3334025311928212672
 MonoBehaviour:
   m_ObjectHideFlags: 0
