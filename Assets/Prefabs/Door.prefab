@@ -12,7 +12,7 @@ NavMeshObstacle:
   m_Shape: 1
   m_Extents: {x: 1, y: 1.139, z: 1}
   m_MoveThreshold: 0.1
-  m_Carve: 1
+  m_Carve: 0
   m_CarveOnlyStationary: 1
   m_Center: {x: 1, y: 0, z: 0.13800001}
   m_TimeToStationary: 0.1
@@ -159,6 +159,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 0028d1cb54a4695459a8771437829b39, type: 2}
+    - target: {fileID: -8733040240986845777, guid: 3d2bd5126c1bc5f4da7d0e6c0e5105d4,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -7911797375563523123, guid: 3d2bd5126c1bc5f4da7d0e6c0e5105d4,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -224,6 +229,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: d7ddd01a39a581e478940620b1931a3c, type: 2}
+    - target: {fileID: 460857468044605546, guid: 3d2bd5126c1bc5f4da7d0e6c0e5105d4,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8940632808050562651, guid: 3d2bd5126c1bc5f4da7d0e6c0e5105d4,
         type: 3}
       propertyPath: m_LocalRotation.x
