@@ -37,6 +37,17 @@ public class Enemy : MonoBehaviour
         {
             agent.stoppingDistance = agentStoppingDistance;
         }
+
+        Attack attack = GetComponent<Attack>();
+        if (attack != null)
+        {
+            Attackable attackable = targets[0].GetComponent<Attackable>();
+            if (attackable != null)
+            {
+                //this object can attack, and the target is attackable
+                attack.target = targets[0].gameObject;
+            }
+        }
     }
 
     private void OnTriggerEnter(Collider other)

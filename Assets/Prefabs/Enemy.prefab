@@ -602,6 +602,7 @@ GameObject:
   - component: {fileID: 4018555447085940772}
   - component: {fileID: 1032386399}
   - component: {fileID: 1032386407}
+  - component: {fileID: 3539298726905105162}
   m_Layer: 12
   m_Name: Enemy
   m_TagString: Untagged
@@ -673,7 +674,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17ad5d2f49c3dd24183cc152eddb1e6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meleeRange: 1.1
+  meleeRange: 3
 --- !u!54 &6480447835540658698
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -744,6 +745,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2618f59174e43146841dcd2cd350eca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3539298726905105162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8049671844725785306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a32abc003c1737428504ecb9edfb062, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  range: 2.5
+  attackInterval: 1.5
+  animator: {fileID: 4554578127820775116}
 --- !u!1 &8049671844731286404
 GameObject:
   m_ObjectHideFlags: 0

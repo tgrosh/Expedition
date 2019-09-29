@@ -712,6 +712,7 @@ GameObject:
   - component: {fileID: 6347547526092425322}
   - component: {fileID: 5216512993068098584}
   - component: {fileID: 487414419}
+  - component: {fileID: 487414420}
   m_Layer: 11
   m_Name: Player
   m_TagString: Player
@@ -818,7 +819,7 @@ MonoBehaviour:
   clickLayers:
     serializedVersion: 2
     m_Bits: 5120
-  meleeRange: 2.5
+  meleeRange: 2
 --- !u!114 &5216512993068098584
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -847,6 +848,18 @@ MonoBehaviour:
   range: 2.5
   attackInterval: 1
   animator: {fileID: 3982870743376594400}
+--- !u!114 &487414420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1986712189424077274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2618f59174e43146841dcd2cd350eca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3408509028092894748
 GameObject:
   m_ObjectHideFlags: 0
