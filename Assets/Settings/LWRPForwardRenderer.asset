@@ -87,7 +87,7 @@ MonoBehaviour:
   m_Name: PlayerBehind
   m_EditorClassIdentifier: 
   settings:
-    passTag: CharactersBehind
+    passTag: PlayerBehind
     Event: 300
     filterSettings:
       RenderQueueType: 0
@@ -131,7 +131,7 @@ MonoBehaviour:
       RenderQueueType: 0
       LayerMask:
         serializedVersion: 2
-        m_Bits: 2048
+        m_Bits: 6144
       PassNames: []
     overrideMaterial: {fileID: 0}
     overrideMaterialPassIndex: 0

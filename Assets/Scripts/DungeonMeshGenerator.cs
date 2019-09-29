@@ -13,6 +13,7 @@ public class DungeonMeshGenerator : MonoBehaviour
     public bool is2D;
 
     public List<GameObject> wallPropPrefabs = new List<GameObject>();
+    public List<GameObject> doorPrefabs = new List<GameObject>();
 
     public bool debugDraw;
     public List<Material> debugMaterials = new List<Material>();
@@ -78,6 +79,7 @@ public class DungeonMeshGenerator : MonoBehaviour
         {
             CreateWallMesh(map, squareSize);
             Clutter();
+            PlaceDoors();
         }
         
         foreach (GameObject obj in GameObject.FindGameObjectsWithTag("DebugPlane"))
@@ -110,6 +112,20 @@ public class DungeonMeshGenerator : MonoBehaviour
         }
     }
 
+    public void PlaceDoors()
+    {
+        for (int x = 0; x < map.GetLength(0); x++)
+        {
+            for (int y = 0; y < map.GetLength(1); y++)
+            {
+                if (wallPropPrefabs.Count > 0 && map[x, y] == (int)TileType.Door)
+                {
+                    PlaceDoor(x, y);
+                }
+            }
+        }
+    }
+
     public void Clutter()
     {        
         for (int x = 0; x < map.GetLength(0); x++)
@@ -121,6 +137,29 @@ public class DungeonMeshGenerator : MonoBehaviour
                     PlaceWallPrefab(x, y);
                 }
             }
+        }
+    }
+
+    public void PlaceDoor(int x, int y)
+    {
+        float rotation = -1;
+
+        if ((x < map.GetLength(0) - 3 && map[x + 3, y] == (int)TileType.Wall) && (x > 2 && map[x - 3, y] == (int)TileType.Wall))
+        {
+            //wall on right AND left
+            rotation = 0f;
+        } else if ((y < map.GetLength(1) - 3 && map[x, y + 3] == (int)TileType.Wall) && (y > 2 && map[x, y - 3] == (int)TileType.Wall))
+        {
+            //wall below AND above?
+            rotation = 90f;
+        }
+
+        if (rotation != -1)
+        {
+            GameObject door = Instantiate(doorPrefabs[UnityEngine.Random.Range(0, doorPrefabs.Count - 1)]);
+            door.transform.position = new Vector3((x - map.GetLength(0) / 2f) + .5f, 0, (y - map.GetLength(1) / 2f) + .5f);
+            door.transform.Rotate(new Vector3(0, rotation, 0));
+            door.transform.SetParent(gameObject.transform);
         }
     }
 
