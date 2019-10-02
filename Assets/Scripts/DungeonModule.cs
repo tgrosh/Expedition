@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[SelectionBase]
 public class DungeonModule : MonoBehaviour
 {
     public List<Exit> exits = new List<Exit>();
