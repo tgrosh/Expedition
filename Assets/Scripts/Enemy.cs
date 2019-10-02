@@ -32,21 +32,21 @@ public class Enemy : MonoBehaviour
         {
             agent.destination = targets[0].transform.position;
             agent.stoppingDistance = meleeRange;
+
+            Attack attack = GetComponent<Attack>();
+            if (attack != null)
+            {
+                Attackable attackable = targets[0].GetComponent<Attackable>();
+                if (attackable != null)
+                {
+                    //this object can attack, and the target is attackable
+                    attack.target = targets[0].gameObject;
+                }
+            }
         }
         else
         {
             agent.stoppingDistance = agentStoppingDistance;
-        }
-
-        Attack attack = GetComponent<Attack>();
-        if (attack != null)
-        {
-            Attackable attackable = targets[0].GetComponent<Attackable>();
-            if (attackable != null)
-            {
-                //this object can attack, and the target is attackable
-                attack.target = targets[0].gameObject;
-            }
         }
     }
 
