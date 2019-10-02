@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class ModularDungeon : MonoBehaviour
 {
@@ -69,6 +70,11 @@ public class ModularDungeon : MonoBehaviour
         generationComplete = true;
         Debug.Log("Dungeon Complete after " + (currentDungeonRetries+1) + " attempt(s)");
         currentDungeonRetries = 0;
+
+        foreach (NavMeshSurface surface in GetComponents<NavMeshSurface>())
+        {
+            surface.BuildNavMesh();
+        }
     }
 
     void ClearDungeon()
