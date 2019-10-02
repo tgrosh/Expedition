@@ -489,6 +489,7 @@ MonoBehaviour:
   useRandomSeed: 1
   roomChance: 0.1
   overlapRetries: 10
+  dungeonRetries: 10
 --- !u!1 &1132343868
 GameObject:
   m_ObjectHideFlags: 0

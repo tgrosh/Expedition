@@ -15,11 +15,14 @@ public class ModularDungeon : MonoBehaviour
     [Range(0, 1)]
     public float roomChance;
     public int overlapRetries;
+    public int dungeonRetries;
 
     System.Random pseudoRandom;
     bool generationComplete;
+    bool invalidDungeon;
 
     int currentOverlapRetries = 0;
+    int currentDungeonRetries = 0;
 
     List<DungeonModule> currentModules = new List<DungeonModule>();
 
@@ -44,11 +47,28 @@ public class ModularDungeon : MonoBehaviour
 
     void GenerateDungeon()
     {
+        invalidDungeon = false;
         ClearDungeon();
         DungeonModule startModule = Instantiate(startingRoom, Vector3.zero, Quaternion.identity, gameObject.transform);
         currentModules.Add(startModule);
         PopulateExits(startModule);
-        Debug.Log("Dungeon Complete");
+
+        if (invalidDungeon)
+        {
+            if (currentDungeonRetries < dungeonRetries)
+            {
+                currentDungeonRetries++;
+                GenerateDungeon();                
+            } else
+            {
+                Debug.Log("Dungeon Generation Failed. Too many retries");
+            }
+            return;
+        }
+
+        generationComplete = true;
+        Debug.Log("Dungeon Complete after " + (currentDungeonRetries+1) + " attempt(s)");
+        currentDungeonRetries = 0;
     }
 
     void ClearDungeon()
@@ -59,6 +79,7 @@ public class ModularDungeon : MonoBehaviour
         }
         currentModules.Clear();
         currentOverlapRetries = 0;
+        generationComplete = false;
     }
 
     void PopulateExits(DungeonModule module)
@@ -82,7 +103,8 @@ public class ModularDungeon : MonoBehaviour
                     } else
                     {
                         currentOverlapRetries = 0;
-                        Debug.LogWarning("Too many retries.. Invalid dungeon");
+                        invalidDungeon = true;
+                        //Debug.LogWarning("Too many retries.. Invalid dungeon");
                     }
                 }
             }
