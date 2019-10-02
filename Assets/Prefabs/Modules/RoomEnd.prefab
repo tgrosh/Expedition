@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 327096385860254669}
   - component: {fileID: 4854930109965289048}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: RoomEnd
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -59,7 +59,7 @@ GameObject:
   m_Component:
   - component: {fileID: 327096386804002882}
   - component: {fileID: 1525482969636671808}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Exit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,7 +102,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 327096386844911589}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Actor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -134,7 +134,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1771285464900727763}
   - component: {fileID: 4380567612560543860}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -227,6 +227,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: RoomEnd
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: eb8a955b835667f41a704aa49731be21,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -1504981713932161579, guid: eb8a955b835667f41a704aa49731be21,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 383e52a0901eea94b86c2672e0387ea5, type: 2}
     - target: {fileID: -4216859302048453862, guid: eb8a955b835667f41a704aa49731be21,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -282,11 +292,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -1504981713932161579, guid: eb8a955b835667f41a704aa49731be21,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 383e52a0901eea94b86c2672e0387ea5, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eb8a955b835667f41a704aa49731be21, type: 3}
 --- !u!4 &4751474219536304320 stripped

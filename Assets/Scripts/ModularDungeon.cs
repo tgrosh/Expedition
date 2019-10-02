@@ -6,6 +6,7 @@ using UnityEngine.AI;
 
 public class ModularDungeon : MonoBehaviour
 {
+    public GameObject playerPrefab;
     public DungeonModule startingRoom;
     public List<DungeonModule> rooms = new List<DungeonModule>();
     public List<DungeonModule> halls = new List<DungeonModule>();
@@ -24,6 +25,8 @@ public class ModularDungeon : MonoBehaviour
 
     int currentOverlapRetries = 0;
     int currentDungeonRetries = 0;
+
+    GameObject player;
 
     List<DungeonModule> currentModules = new List<DungeonModule>();
 
@@ -75,10 +78,12 @@ public class ModularDungeon : MonoBehaviour
         {
             surface.BuildNavMesh();
         }
+        player = Instantiate(playerPrefab, new Vector3(startingRoom.bounds.center.x, 0, startingRoom.bounds.center.y), Quaternion.identity);
     }
 
     void ClearDungeon()
     {
+        Destroy(player);
         foreach (DungeonModule module in GetComponentsInChildren<DungeonModule>())
         {
             Destroy(module.gameObject);
