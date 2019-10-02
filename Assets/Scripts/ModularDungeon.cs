@@ -19,8 +19,9 @@ public class ModularDungeon : MonoBehaviour
     System.Random pseudoRandom;
     bool generationComplete;
 
-    int currentModuleCount = 0;
     int currentOverlapRetries = 0;
+
+    List<DungeonModule> currentModules = new List<DungeonModule>();
 
     public void Start()
     {
@@ -32,12 +33,22 @@ public class ModularDungeon : MonoBehaviour
 
         GenerateDungeon();        
     }
-    
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.F5))
+        {
+            GenerateDungeon();
+        }
+    }
+
     void GenerateDungeon()
     {
         ClearDungeon();
         DungeonModule startModule = Instantiate(startingRoom, Vector3.zero, Quaternion.identity, gameObject.transform);
-        PopulateExits(startModule);        
+        currentModules.Add(startModule);
+        PopulateExits(startModule);
+        Debug.Log("Dungeon Complete");
     }
 
     void ClearDungeon()
@@ -46,6 +57,8 @@ public class ModularDungeon : MonoBehaviour
         {
             Destroy(module.gameObject);
         }
+        currentModules.Clear();
+        currentOverlapRetries = 0;
     }
 
     void PopulateExits(DungeonModule module)
@@ -80,7 +93,7 @@ public class ModularDungeon : MonoBehaviour
     {
         int randomModule = pseudoRandom.Next(0, modules.Count);
         DungeonModule module = Instantiate(modules[randomModule]);
-        module.gameObject.name += "-" + currentModuleCount;
+        module.gameObject.name += "-" + (currentModules.Count+1);
         Exit exit = GetRandomAvailableExit(module);
 
         //reset position and rotation
@@ -99,12 +112,12 @@ public class ModularDungeon : MonoBehaviour
         module.transform.position = target.transform.position - nextHallPositionOffset;
 
         module.transform.SetParent(gameObject.transform);
-
+        
         if (!CheckOverlap(module))
         {
             target.available = false;
             exit.available = false;
-            currentModuleCount++;
+            currentModules.Add(module);
             PopulateExits(module);
             return true;
         } else
@@ -132,7 +145,7 @@ public class ModularDungeon : MonoBehaviour
         Bounds moduleBounds = module.bounds;
         moduleBounds.Expand(-.1f);
 
-        foreach(DungeonModule dungeonModule in FindObjectsOfType<DungeonModule>())
+        foreach(DungeonModule dungeonModule in currentModules)
         {
             if (dungeonModule != module && dungeonModule.bounds.Intersects(moduleBounds))
             {
