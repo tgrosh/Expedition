@@ -484,9 +484,11 @@ MonoBehaviour:
   - {fileID: 317072650862306490, guid: e98d275b6029a5749af8e85144058318, type: 3}
   - {fileID: 317072650862306490, guid: e98d275b6029a5749af8e85144058318, type: 3}
   - {fileID: 1032546399584599991, guid: 40e132daec70ee043aaf7c55ebabbba6, type: 3}
+  - {fileID: 7222427474212830392, guid: f88dcfe298b810d45b4a9f04f15ba52f, type: 3}
   seed: 
   useRandomSeed: 1
   roomChance: 0.1
+  overlapRetries: 10
 --- !u!1 &1132343868
 GameObject:
   m_ObjectHideFlags: 0
