@@ -49,6 +49,16 @@ public class ModularDungeon : MonoBehaviour
         }
     }
 
+    IEnumerator BuildNavMesh()
+    {
+        yield return new WaitForEndOfFrame();
+        foreach (NavMeshSurface surface in GetComponents<NavMeshSurface>())
+        {
+            Debug.Log("Building navmesh");
+            surface.BuildNavMesh();
+        }
+    }
+
     void GenerateDungeon()
     {
         invalidDungeon = false;
@@ -61,6 +71,7 @@ public class ModularDungeon : MonoBehaviour
         {
             if (currentDungeonRetries < dungeonRetries)
             {
+                Debug.Log("Retrying dungeon");
                 currentDungeonRetries++;
                 GenerateDungeon();                
             } else
@@ -74,10 +85,7 @@ public class ModularDungeon : MonoBehaviour
         Debug.Log("Dungeon Complete after " + (currentDungeonRetries+1) + " attempt(s)");
         currentDungeonRetries = 0;
 
-        foreach (NavMeshSurface surface in GetComponents<NavMeshSurface>())
-        {
-            surface.BuildNavMesh();
-        }
+        StartCoroutine("BuildNavMesh");
         player = Instantiate(playerPrefab, new Vector3(startingRoom.bounds.center.x, 0, startingRoom.bounds.center.y), Quaternion.identity);
     }
 
@@ -115,7 +123,7 @@ public class ModularDungeon : MonoBehaviour
                     {
                         currentOverlapRetries = 0;
                         invalidDungeon = true;
-                        //Debug.LogWarning("Too many retries.. Invalid dungeon");
+                        Debug.LogWarning("Too many retries.. Invalid dungeon");
                     }
                 }
             }
@@ -182,7 +190,7 @@ public class ModularDungeon : MonoBehaviour
         {
             if (dungeonModule != module && dungeonModule.bounds.Intersects(moduleBounds))
             {
-                //Debug.Log("Overlap " + module.name + " and " + dungeonModule.name);
+                Debug.Log("Overlap " + module.name + " and " + dungeonModule.name);
                 return true;
             }
         }

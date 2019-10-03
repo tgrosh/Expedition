@@ -408,8 +408,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 551984952}
-  - component: {fileID: 551984953}
   - component: {fileID: 551984954}
+  - component: {fileID: 551984953}
   m_Layer: 10
   m_Name: TestRoom
   m_TagString: Untagged
@@ -444,7 +444,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AgentTypeID: 0
-  m_CollectObjects: 0
+  m_CollectObjects: 2
   m_Size: {x: 10, y: 10, z: 10}
   m_Center: {x: 0, y: 2, z: 0}
   m_LayerMask:
@@ -459,7 +459,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 1
   m_VoxelSize: 0.0833
   m_BuildHeightMesh: 0
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: 7bbf4e409f947b441b25f7ec6edd4812, type: 2}
 --- !u!114 &551984954
 MonoBehaviour:
   m_ObjectHideFlags: 0
