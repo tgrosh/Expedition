@@ -323,10 +323,6 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -19.960634
       objectReference: {fileID: 0}
-    - target: {fileID: 1447818381, guid: 7703a229203d7a64f844e45869ee878d, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 800758720933711272, guid: 7703a229203d7a64f844e45869ee878d,
         type: 3}
       propertyPath: m_LocalRotation.x
@@ -396,6 +392,10 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.9367095
+      objectReference: {fileID: 0}
+    - target: {fileID: 1447818381, guid: 7703a229203d7a64f844e45869ee878d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7703a229203d7a64f844e45869ee878d, type: 3}
@@ -477,19 +477,14 @@ MonoBehaviour:
     type: 3}
   enemyPrefab: {fileID: 8049671844725785306, guid: ae7038b30da87ee48831da5bebfb299e,
     type: 3}
-  startingRoom: {fileID: 7078701267178012823, guid: 175d65d00e515a7459b84b181a3793b7,
+  startingRoom: {fileID: 122913227715423876, guid: d35225914ca8e0f45acde6ae90f49f31,
     type: 3}
   rooms:
-  - {fileID: 4854930109965289048, guid: 9df31db011ec90a468d59b503bd6b88d, type: 3}
+  - {fileID: 122913227715423876, guid: d35225914ca8e0f45acde6ae90f49f31, type: 3}
   halls:
-  - {fileID: 317072650862306490, guid: e98d275b6029a5749af8e85144058318, type: 3}
-  - {fileID: 1032546399584599991, guid: 40e132daec70ee043aaf7c55ebabbba6, type: 3}
-  - {fileID: 8347860193756682945, guid: fbc81e1c47696204bb5ab23c844438e0, type: 3}
-  - {fileID: 317072650862306490, guid: e98d275b6029a5749af8e85144058318, type: 3}
-  - {fileID: 317072650862306490, guid: e98d275b6029a5749af8e85144058318, type: 3}
-  - {fileID: 317072650862306490, guid: e98d275b6029a5749af8e85144058318, type: 3}
-  - {fileID: 1032546399584599991, guid: 40e132daec70ee043aaf7c55ebabbba6, type: 3}
-  - {fileID: 7222427474212830392, guid: f88dcfe298b810d45b4a9f04f15ba52f, type: 3}
+  - {fileID: 2941790996972122941, guid: d8d7541a84b58534c9c84b640d405885, type: 3}
+  - {fileID: 14126474802376687, guid: 0983d69ab8c0ee64a8c9025f5e8e8e06, type: 3}
+  - {fileID: 2941790996972122941, guid: d8d7541a84b58534c9c84b640d405885, type: 3}
   seed: 
   useRandomSeed: 1
   roomChance: 0.1

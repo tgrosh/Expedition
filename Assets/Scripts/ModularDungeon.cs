@@ -193,7 +193,6 @@ public class ModularDungeon : MonoBehaviour
     bool CheckOverlap(DungeonModule module)
     {
         Bounds moduleBounds = module.bounds;
-        moduleBounds.Expand(-.1f);
 
         foreach(DungeonModule dungeonModule in currentModules)
         {

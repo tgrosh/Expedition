@@ -12,7 +12,6 @@ public class DungeonModule : MonoBehaviour
     {
         Gizmos.color = new Color(0f, .5f, 1f, .25f);
         Bounds cubeBounds = bounds;
-        cubeBounds.Expand(-.1f);
         Gizmos.DrawCube(bounds.center, cubeBounds.size);
     }
 
@@ -20,7 +19,12 @@ public class DungeonModule : MonoBehaviour
     {
         get
         {
-            return meshRenderer.bounds;
+            if (meshRenderer == null) return new Bounds(Vector3.zero, Vector3.zero);
+
+            Bounds cubeBounds = meshRenderer.bounds;
+            float expandAmount = -.05f;
+            cubeBounds.Expand(new Vector3(cubeBounds.size.x * expandAmount, cubeBounds.size.y * expandAmount, cubeBounds.size.z * expandAmount));
+            return cubeBounds;
         }
     }
 }
