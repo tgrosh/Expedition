@@ -7,6 +7,7 @@ using UnityEngine.AI;
 public class ModularDungeon : MonoBehaviour
 {
     public GameObject playerPrefab;
+    public GameObject enemyPrefab;
     public DungeonModule startingRoom;
     public List<DungeonModule> rooms = new List<DungeonModule>();
     public List<DungeonModule> halls = new List<DungeonModule>();
@@ -27,6 +28,7 @@ public class ModularDungeon : MonoBehaviour
     int currentDungeonRetries = 0;
 
     GameObject player;
+    GameObject enemy;
 
     List<DungeonModule> currentModules = new List<DungeonModule>();
 
@@ -86,7 +88,9 @@ public class ModularDungeon : MonoBehaviour
         currentDungeonRetries = 0;
 
         StartCoroutine("BuildNavMesh");
-        player = Instantiate(playerPrefab, new Vector3(startingRoom.bounds.center.x, 0, startingRoom.bounds.center.y), Quaternion.identity);
+        player = Instantiate(playerPrefab, startingRoom.transform.position, Quaternion.identity);
+        DungeonModule enemyModule = GetRandomModule(currentModules);
+        enemy = Instantiate(enemyPrefab, enemyModule.transform.position, Quaternion.identity);
     }
 
     void ClearDungeon()
@@ -130,10 +134,15 @@ public class ModularDungeon : MonoBehaviour
         }
     }
 
-    bool PlaceRandomModule(List<DungeonModule> modules, Exit target)
+    DungeonModule GetRandomModule(List<DungeonModule> modules)
     {
         int randomModule = pseudoRandom.Next(0, modules.Count);
-        DungeonModule module = Instantiate(modules[randomModule]);
+        return modules[randomModule];
+    }
+
+    bool PlaceRandomModule(List<DungeonModule> modules, Exit target)
+    {
+        DungeonModule module = Instantiate(GetRandomModule(modules));
         module.gameObject.name += "-" + (currentModules.Count+1);
         Exit exit = GetRandomAvailableExit(module);
 
