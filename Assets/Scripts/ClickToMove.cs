@@ -67,4 +67,9 @@ public class ClickToMove : MonoBehaviour
             }
         }
     }
+
+    private void OnDestroy()
+    {
+        Destroy(circle);
+    }
 }
