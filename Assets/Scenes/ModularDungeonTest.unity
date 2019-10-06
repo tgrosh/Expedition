@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 3
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 58d71554938275e41b54fe2701ac32b6, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -483,8 +483,13 @@ MonoBehaviour:
   - {fileID: 122913227715423876, guid: d35225914ca8e0f45acde6ae90f49f31, type: 3}
   halls:
   - {fileID: 2941790996972122941, guid: d8d7541a84b58534c9c84b640d405885, type: 3}
-  - {fileID: 14126474802376687, guid: 0983d69ab8c0ee64a8c9025f5e8e8e06, type: 3}
   - {fileID: 2941790996972122941, guid: d8d7541a84b58534c9c84b640d405885, type: 3}
+  - {fileID: 7362843598502880799, guid: d1e946cc159c3364c8624df87f5d4e55, type: 3}
+  - {fileID: 7488796301313353490, guid: ee6971abb8f415b449a7c65faa7f1417, type: 3}
+  - {fileID: 1625219582708261310, guid: fadc868b88e3f98458b274e8abe4384e, type: 3}
+  enders:
+  - {fileID: 14126474802376687, guid: 0983d69ab8c0ee64a8c9025f5e8e8e06, type: 3}
+  moduleLimit: 100
   seed: 
   useRandomSeed: 1
   roomChance: 0.1
