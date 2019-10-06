@@ -11,6 +11,8 @@ public class ModularDungeon : MonoBehaviour
     public DungeonModule startingRoom;
     public List<DungeonModule> rooms = new List<DungeonModule>();
     public List<DungeonModule> halls = new List<DungeonModule>();
+    public List<DungeonModule> enders = new List<DungeonModule>();
+    public int moduleLimit;
 
     public string seed;
     public bool useRandomSeed;
@@ -30,6 +32,8 @@ public class ModularDungeon : MonoBehaviour
     GameObject player;
     GameObject enemy;
 
+    int branchModuleLimit;
+
     List<DungeonModule> currentModules = new List<DungeonModule>();
 
     public void Start()
@@ -40,7 +44,7 @@ public class ModularDungeon : MonoBehaviour
         }
         pseudoRandom = new System.Random(seed.GetHashCode());
 
-        GenerateDungeon();        
+        GenerateDungeon();
     }
 
     private void Update()
@@ -67,7 +71,8 @@ public class ModularDungeon : MonoBehaviour
         ClearDungeon();
         DungeonModule startModule = Instantiate(startingRoom, Vector3.zero, Quaternion.identity, gameObject.transform);
         currentModules.Add(startModule);
-        PopulateExits(startModule);
+        branchModuleLimit = moduleLimit / startModule.exits.Count;
+        PopulateExits(startModule, false);
 
         if (invalidDungeon)
         {
@@ -75,8 +80,9 @@ public class ModularDungeon : MonoBehaviour
             {
                 Debug.Log("Retrying dungeon");
                 currentDungeonRetries++;
-                GenerateDungeon();                
-            } else
+                GenerateDungeon();
+            }
+            else
             {
                 Debug.Log("Dungeon Generation Failed. Too many retries");
             }
@@ -84,7 +90,7 @@ public class ModularDungeon : MonoBehaviour
         }
 
         generationComplete = true;
-        Debug.Log("Dungeon Complete after " + (currentDungeonRetries+1) + " attempt(s)");
+        Debug.Log("Dungeon Complete after " + (currentDungeonRetries + 1) + " attempt(s)");
         currentDungeonRetries = 0;
 
         StartCoroutine("BuildNavMesh");
@@ -96,6 +102,7 @@ public class ModularDungeon : MonoBehaviour
     void ClearDungeon()
     {
         Destroy(player);
+        Destroy(enemy);
         foreach (DungeonModule module in GetComponentsInChildren<DungeonModule>())
         {
             Destroy(module.gameObject);
@@ -105,7 +112,7 @@ public class ModularDungeon : MonoBehaviour
         generationComplete = false;
     }
 
-    void PopulateExits(DungeonModule module)
+    void PopulateExits(DungeonModule module, bool endersOnly)
     {
         List<DungeonModule> modules;
 
@@ -117,13 +124,19 @@ public class ModularDungeon : MonoBehaviour
             {
                 modules = (roomChance > pseudoRandom.Next(0, 100) / 100f) ? rooms : halls;
 
+                if (endersOnly)
+                {
+                    modules = enders;
+                }
+
                 if (!PlaceRandomModule(modules, exit))
                 {
                     if (currentOverlapRetries < overlapRetries)
                     {
                         i--; //continue with this exit until it gets populated
                         currentOverlapRetries++;
-                    } else
+                    }
+                    else
                     {
                         currentOverlapRetries = 0;
                         invalidDungeon = true;
@@ -143,8 +156,13 @@ public class ModularDungeon : MonoBehaviour
     bool PlaceRandomModule(List<DungeonModule> modules, Exit target)
     {
         DungeonModule module = Instantiate(GetRandomModule(modules));
-        module.gameObject.name += "-" + (currentModules.Count+1);
+        module.gameObject.name += "-" + (currentModules.Count);
         Exit exit = GetRandomAvailableExit(module);
+
+        if (exit == null)
+        {
+            Debug.LogWarning("No exit found for module " + module.gameObject.name);
+        }
 
         //reset position and rotation
         module.transform.position = Vector3.zero;
@@ -168,7 +186,7 @@ public class ModularDungeon : MonoBehaviour
             target.available = false;
             exit.available = false;
             currentModules.Add(module);
-            PopulateExits(module);
+            PopulateExits(module, currentModules.Count >= branchModuleLimit);
             return true;
         } else
         {
