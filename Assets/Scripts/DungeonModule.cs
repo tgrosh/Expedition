@@ -7,12 +7,16 @@ public class DungeonModule : MonoBehaviour
 {
     public List<Exit> exits = new List<Exit>();
     public MeshRenderer meshRenderer;
+    public bool showBounds = false;
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = new Color(0f, .5f, 1f, .25f);
-        Bounds cubeBounds = bounds;
-        Gizmos.DrawCube(bounds.center, cubeBounds.size);
+        if (showBounds)
+        {
+            Gizmos.color = new Color(0f, .5f, 1f, .25f);
+            Bounds cubeBounds = bounds;
+            Gizmos.DrawCube(bounds.center, cubeBounds.size);
+        }
     }
 
     public Bounds bounds
